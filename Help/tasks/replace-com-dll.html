@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Language" content="en-ca" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <title>&lt;replace-com-dll&gt; Task</title>
+</head>
+<body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="2" class="NavBar">
+        <tr>
+            <td class="NavBar-Cell">
+                <a href="http://nant.sourceforge.net"><b>NAnt</b> </a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                <a href="../index.html">Help</a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                <a href="../tasks/index.html">Task Reference</a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                &lt;replace-com-dll&gt;</td>
+            <td class="NavBar-Cell" align="right">
+                @NAntConsoleVersion@</td>
+        </tr>
+    </table>
+    <h1>
+        &lt;replace-com-dll&gt;</h1>
+    <p>
+        Replace a COM dll (carefully unregister/register while taking care of blocking processes).
+    </p>
+    <h3>
+        Parameters</h3>
+    <div class="table">
+        <table>
+            <tr>
+                <th>
+                    Attribute</th>
+                <th style="text-align: center;">
+                    Type</th>
+                <th>
+                    Description</th>
+                <th style="text-align: center;">
+                    Required</th>
+            </tr>
+            <tr>
+                <td valign="top">
+                    source</td>
+                <td style="text-align: center;">
+                    file</td>
+                <td>
+                    Source file (the file to replace).
+                </td>
+                <td style="text-align: center;">
+                    True</td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    dest</td>
+                <td style="text-align: center;">
+                    file</td>
+                <td>
+                    Destination file (the new file).
+                </td>
+                <td style="text-align: center;">
+                    True</td>
+            </tr>
+        </table>
+    </div>
+    <h3>Actions</h3>
+    <p> The following actions are performed : </p>
+    <ul>
+        <li>if the <code>dest</code> file exists :
+        <ul>
+            <li><a href="../tasks/kill-process.html">kill-process</a> on the <code>dest</code> dll.</li>
+            <li><a href="../tasks/com-register.html">unregister</a> on the <code>dest</code> dll.</li>
+        </ul>
+        </li>
+        <li><a href="../tasks/copy.html">copy</a> of the <code>source</code> dll to the <code>dest</code>.</li>
+        <li><a href="../tasks/com-register.html">com-register</a> on the &quot;new&quot;<code>dest</code> dll.</li>
+    </ul>
+    <h3>
+        Examples</h3>
+    <ul class="examples">
+        <li>
+            <p>
+                Replace <code>old.dll</code> by <code>new.dll</code>.
+            </p>
+            <pre class="code">
+&lt;replace-com-dll source=&quot;new.dll&quot; dest=&quot;old.dll&quot; /&gt;
+    </pre>
+        </li>
+    </ul>
+</body>
+</html>

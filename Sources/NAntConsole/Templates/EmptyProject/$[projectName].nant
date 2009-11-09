@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<project name="$[projectName]" default="build" xmlns="http://nant.sf.net/schemas/nant.xsd">
+
+  <env-include />
+  <version />
+
+  <target name="build" description="Build the project">
+    
+  </target>
+
+  <target name="package" depends="build" description="Create .deploy package.">
+    <delete dir="Package" />
+    <mkdir dir="Package" />
+    
+    <create-package dir="Package" package="$[projectName]-${version}.deploy" />
+    <delete dir="Package" />
+  </target>
+
+  <target name="release" depends="package" description="Everything needed to create a release, including packaging, svn and delivery dir.">
+    <svn-commit message="Release ${version}" />
+    <svn-copy uri="${svn::get-tags-uri-from-path()}/${version}" message="Release ${version}" />
+    <mkdir dir="${nantconsole.delivery.dir}\$[projectName]\${version}"/>
+    <copy file="$[projectName]-${version}.deploy"  tofile="${nantconsole.delivery.dir}\$[projectName]\${version}\$[projectName]-${version}.deploy" />
+  </target>
+
+  <target name="install" description="Install the .deploy package.">
+    <!-- installation instructions -->
+  </target>
+
+  <target name="uninstall" description="Uninstall the .deploy package.">
+    <!-- teardown instructions -->
+  </target>
+
+</project>

@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Language" content="en-ca" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <title>&lt;iis-create-website&gt; Task</title>
+</head>
+<body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="2" class="NavBar">
+        <tr>
+            <td class="NavBar-Cell">
+                <a href="http://nant.sourceforge.net"><b>NAnt</b> </a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                <a href="../index.html">Help</a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                <a href="../tasks/index.html">Task Reference</a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                &lt;iis-create-website&gt;</td>
+            <td class="NavBar-Cell" align="right">
+                @NAntConsoleVersion@</td>
+        </tr>
+    </table>
+    <h1>
+        &lt;iis-create-website&gt;</h1>
+    <p>
+        Creates a IIS website.
+    </p>
+    <h3>
+        Parameters</h3>
+    <div class="table">
+        <table>
+            <tr>
+                <th>
+                    Attribute</th>
+                <th style="text-align: center;">
+                    Type</th>
+                <th>
+                    Description</th>
+                <th style="text-align: center;">
+                    Required</th>
+            </tr>
+            <tr>
+                <td valign="top">
+                    website</td>
+                <td style="text-align: center;">
+                    string</td>
+                <td>
+                    The name of the website to create.
+                </td>
+                <td style="text-align: center;">
+                    True</td>
+            </tr>
+        </table>
+    </div>
+    <h3>Nested Elements:</h3>
+    <!--Element-->
+    <h4>&lt;<a href="../types/apppool.html">apppool</a>&gt;</h4>
+    <div class="nested-element">
+        Each website is attached to an apppool named <code>[WebsiteName]AppPool</code> which is deleted / created on task execution.<br />
+        This node allows you to set properties on the created apppool.
+    </div>
+    <h4>&lt;/<a href="../types/apppool.html">apppool</a>&gt;</h4>
+    <h4>&lt;<a href="../types/iis-typed-property.html">property</a>&gt;</h4>
+    <div class="nested-element"> Set properties applied to the Website in the IIS Metabase. </div>
+    <h4>&lt;/<a href="../types/iis-typed-property.html">property</a>&gt;</h4>
+    <h4>&lt;<a href="../types/iis-vdir.html">vdir</a>&gt;</h4>
+    <div class="nested-element"> Defines a virtual directory inside the current website. Note that in order to have a <strong>usable</strong> website, you must create a &quot;root&quot; vdir (accordingly named root). </div>
+    <h4>&lt;/<a href="../types/iis-vdir.html">vdir</a>&gt;</h4>
+    
+    <h3>
+        Wizard</h3>
+    
+    To assist you in creating and configuring a IIS website, you can :
+    <ul>
+        <li>Create and configure a IIS website using the Windows IIS Manager. </li>
+        <li>Launch the &quot;Extract IIS config...&quot; tool found in NAntConsole. <br />
+        <img src="../images/extractiisconfig.png" />
+        </li>
+        <li>Connect to the computer where you set the IIS website and select the website.<br />
+        <img src="../images/extractiisconfig2.png" />
+        </li>
+        <li>The installation code can then be copied/pasted into the nant script.</li>
+    </ul>
+    
+    <h3>
+        Examples</h3>
+    <ul class="examples">
+        <li>
+            <p>
+                Full exemple of a working Website.
+            </p>
+            <pre class="code">
+&lt;iis-create-website website=&quot;ReferenceWebSite&quot;&gt;
+	&lt;property name=&quot;AuthFlags&quot; value=&quot;0&quot; type=&quot;DWORD&quot; /&gt;
+	&lt;property name=&quot;ServerState&quot; value=&quot;2&quot; type=&quot;DWORD&quot; /&gt;
+	&lt;property name=&quot;Win32Error&quot; value=&quot;0&quot; type=&quot;DWORD&quot; /&gt;
+	&lt;property name=&quot;ServerBindings&quot; type=&quot;MultiString&quot;&gt;
+		&lt;entry value=&quot;:80:www.ref.website.net&quot; /&gt;
+	&lt;/property&gt;
+	&lt;property name=&quot;MaxBandwidth&quot; value=&quot;-1&quot; type=&quot;DWORD&quot; /&gt;
+	&lt;apppool&gt;
+		&lt;property name=&quot;AppPoolState&quot; value=&quot;2&quot; type=&quot;DWORD&quot; /&gt;
+	&lt;/apppool&gt;
+	&lt;vdir name=&quot;root&quot;&gt;
+		&lt;property name=&quot;AccessFlags&quot; value=&quot;513&quot; type=&quot;DWORD&quot; /&gt;
+		&lt;property name=&quot;AuthFlags&quot; value=&quot;5&quot; type=&quot;DWORD&quot; /&gt;
+		&lt;property name=&quot;AppFriendlyName&quot; value=&quot;ReferenceWebSite&quot; type=&quot;String&quot; /&gt;
+		&lt;property name=&quot;DefaultDoc&quot; value=&quot;bidule.htm,Default.htm,Default.asp,index.htm&quot; type=&quot;String&quot; /&gt;
+		&lt;property name=&quot;Path&quot; value=&quot;E:\Nant-sources&quot; type=&quot;String&quot; /&gt;
+		&lt;property name=&quot;ScriptMaps&quot; type=&quot;MultiString&quot;&gt;
+			&lt;entry value=&quot;.asp,C:\WINDOWS\system32\inetsrv\asp.dll,5,GET,HEAD,POST,TRACE&quot; /&gt;
+			&lt;entry value=&quot;.cer,C:\WINDOWS\system32\inetsrv\asp.dll,5,GET,HEAD,POST,TRACE&quot; /&gt;
+			&lt;entry value=&quot;.cdx,C:\WINDOWS\system32\inetsrv\asp.dll,5,GET,HEAD,POST,TRACE&quot; /&gt;
+			&lt;entry value=&quot;.asa,C:\WINDOWS\system32\inetsrv\asp.dll,5,GET,HEAD,POST,TRACE&quot; /&gt;
+			&lt;entry value=&quot;.idc,C:\WINDOWS\system32\inetsrv\httpodbc.dll,5,GET,POST&quot; /&gt;
+			&lt;entry value=&quot;.shtm,C:\WINDOWS\system32\inetsrv\ssinc.dll,5,GET,POST&quot; /&gt;
+			&lt;entry value=&quot;.shtml,C:\WINDOWS\system32\inetsrv\ssinc.dll,5,GET,POST&quot; /&gt;
+			&lt;entry value=&quot;.stm,C:\WINDOWS\system32\inetsrv\ssinc.dll,5,GET,POST&quot; /&gt;
+			&lt;entry value=&quot;.asax,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.ascx,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.ashx,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,1,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.asmx,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,1,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.aspx,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,1,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.axd,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,1,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.vsdisco,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,1,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.rem,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,1,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.soap,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,1,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.config,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.cs,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.csproj,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.vb,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.vbproj,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.webinfo,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.licx,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.resx,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.resources,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.master,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.skin,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.compiled,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.browser,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.mdb,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.jsl,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.vjsproj,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.sitemap,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.msgx,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,1,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.ad,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.dd,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.ldd,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.sd,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.cd,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.adprototype,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.lddprototype,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.sdm,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.sdmDocument,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.ldb,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.svc,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,1,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.mdf,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.ldf,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.java,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.exclude,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+			&lt;entry value=&quot;.refresh,c:\windows\microsoft.net\framework\v2.0.50727\aspnet_isapi.dll,5,GET,HEAD,POST,DEBUG&quot; /&gt;
+		&lt;/property&gt;
+		&lt;property name=&quot;AuthChangeURL&quot; value=&quot;/iisadmpwd/achg.asp&quot; type=&quot;String&quot; /&gt;
+		&lt;property name=&quot;AuthExpiredUnsecureURL&quot; value=&quot;/iisadmpwd/aexp3.asp&quot; type=&quot;String&quot; /&gt;
+		&lt;property name=&quot;AuthExpiredURL&quot; value=&quot;/iisadmpwd/aexp.asp&quot; type=&quot;String&quot; /&gt;
+		&lt;property name=&quot;AuthNotifyPwdExpUnsecureURL&quot; value=&quot;/iisadmpwd/anot3.asp&quot; type=&quot;String&quot; /&gt;
+		&lt;property name=&quot;AuthNotifyPwdExpURL&quot; value=&quot;/iisadmpwd/anot.asp&quot; type=&quot;String&quot; /&gt;
+	&lt;/vdir&gt;
+&lt;/iis-create-website&gt;
+    </pre>
+        </li>
+    </ul>
+</body>
+</html>

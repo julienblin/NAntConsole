@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Language" content="en-ca" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <title>&lt;user&gt; Type</title>
+  </head>
+  <body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="2" class="NavBar">
+      <tr>
+        <td class="NavBar-Cell">
+          <a href="http://nant.sourceforge.net">
+            <b>NAnt</b>
+          </a>
+          <img alt="-&gt;" src="../images/arrow.gif" />
+          <a href="../index.html">Help</a>
+          <img alt="-&gt;" src="../images/arrow.gif" />
+          <a href="../types/index.html">Type Reference</a>
+          <img alt="-&gt;" src="../images/arrow.gif" /> &lt;user&gt;</td>
+        <td class="NavBar-Cell" align="right">
+                        @NAntConsoleVersion@</td>
+      </tr>
+    </table>
+    <h1>&lt;user&gt;</h1>
+    <p> Represent a user associated with a <a href="../types/role.html">role</a>. </p>
+    <h3>Parameters</h3>
+    <div class="table">
+      <table>
+        <tr>
+          <th>Attribute</th>
+          <th style="text-align: center;">Type</th>
+          <th>Description</th>
+          <th style="text-align: center;">Required</th>
+        </tr>
+        <tr>
+          <td valign="top">name</td>
+          <td style="text-align: center;">string</td>
+          <td> Name of the user. </td>
+          <td style="text-align: center;">True</td>
+        </tr>
+       </table>
+    </div>
+    <h3>
+        Examples</h3>
+    <ul class="examples">
+        <li>
+            <p>
+                Reference the user DOMAINNAME\Administrator.
+            </p>
+            <pre class="code">
+&lt;user name=&quot;DOMAINNAME\Administrator&quot; /&gt;
+    </pre>
+        </li>
+    </ul>
+  </body>
+</html>

@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Documenting T:NAnt.DotNet.Tasks.check-vb6-dependenciesTask-->
+<head>
+    <meta http-equiv="Content-Language" content="en-ca" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <title>&lt;check-vb6-dependencies&gt; Task</title>
+</head>
+<body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="2" class="NavBar">
+        <tr>
+            <td class="NavBar-Cell">
+                <a href="http://nant.sourceforge.net"><b>NAnt</b> </a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                <a href="../index.html">Help</a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                <a href="../tasks/index.html">Task Reference</a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                &lt;check-vb6-dependencies&gt;</td>
+            <td class="NavBar-Cell" align="right">
+                @NAntConsoleVersion@</td>
+        </tr>
+    </table>
+    <h1>
+        &lt;check-vb6-dependencies&gt;</h1>
+    <p>
+        Checks dll dependencies listed in .vbp VB6 project files.
+    </p>
+    <h3>
+        Parameters</h3>
+    <div class="table">
+        <table>
+            <tr>
+                <th>
+                    Attribute</th>
+                <th style="text-align: center;">
+                    Type</th>
+                <th>
+                    Description</th>
+                <th style="text-align: center;">
+                    Required</th>
+            </tr>
+            <tr>
+                <td valign="top">
+                    vb-project</td>
+                <td style="text-align: center;">
+                    file</td>
+                <td>
+                    Specify the name of a .vbp file.
+                </td>
+                <td style="text-align: center;">
+                    True</td>
+            </tr>
+        </table>
+    </div>
+    <h3>
+        Rules</h3>
+    <ul>
+        <li>each reference inside <code>vb-project</code> file is checked and fail :
+        <ul>
+        <li>if the path is rooted instead of relative (e.g. C:\Myproject\Myproject.dll fail whereas ..\..\Myproject.dll doesn't);</li>
+        <li>if the path reference a non-existent file (the file pointed by the path reference must exists);</li>
+        <li>if the classid and the version in the reference are different than those of the reference file pointed by the path.</li>
+        </ul>
+        </li>
+        <li>if the path reference the system directory (e.g. C:\WINDOWS\System32) or the Program files (e.g. C:\Program Files), the check is ignored ;</li>
+    </ul>
+    <h3>
+        Examples</h3>
+    <ul class="examples">
+        <li>
+            <p>
+                Checks a .vbp files dependencies.
+            </p>
+            <pre class="code">
+&lt;check-vb6-dependencies vb-project="CDSUtils\CDSUtils.vbp" /&gt;
+    </pre>
+        </li>
+    </ul>
+</body>
+</html>

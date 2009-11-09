@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Language" content="en-ca" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <title>&lt;build-component&gt; Task</title>
+</head>
+<body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="2" class="NavBar">
+        <tr>
+            <td class="NavBar-Cell">
+                <a href="http://nant.sourceforge.net"><b>NAnt</b> </a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                <a href="../index.html">Help</a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                <a href="../tasks/index.html">Task Reference</a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                &lt;build-component&gt;</td>
+            <td class="NavBar-Cell" align="right">
+                @NAntConsoleVersion@</td>
+        </tr>
+    </table>
+    <h1>
+        &lt;build-component&gt;</h1>
+    <p>
+        Build .Net or VB6 components.
+    </p>
+    <h3>
+        Parameters</h3>
+    <div class="table">
+        <table>
+            <tr>
+                <th>
+                    Attribute</th>
+                <th style="text-align: center;">
+                    Type</th>
+                <th>
+                    Description</th>
+                <th style="text-align: center;">
+                    Required</th>
+            </tr>
+            <tr>
+                <td valign="top">
+                    project</td>
+                <td style="text-align: center;">
+                    file</td>
+                <td>
+                    Project file to build (.vbp or .sln).
+                </td>
+                <td style="text-align: center;">
+                    True</td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    configuration</td>
+                <td style="text-align: center;">
+                    configuration</td>
+                <td>
+                    Configuration (debug or release).
+                </td>
+                <td style="text-align: center;">
+                    True</td>
+            </tr>
+        </table>
+    </div>
+    <h3>Actions</h3>
+    <p> The build task will do the following :
+        <ul>
+            <li>for each project file, if a task named <code>pre-build-[ProjectFile]</code> (e.g. <code>pre-build-Myproject.sln</code>) exists, it will be executed before the build of the component.</li>
+            <li>if the project is a VB6 project (.vbp) :
+            <ul>
+                <li>the project output is the <code>.\Bin</code> directory;</li>
+                <li>the conditionals are :
+                <ul>
+                    <li><code>RunMode=0</code> if <code>configuration=debug</code></li>
+                    <li><code>RunMode=2</code> if <code>configuration=release</code></li>
+                </ul>
+                </li>
+				<li>the resulting &quot;.exp&quot; and &quot;.lib&quot; files are deleted from the <code>.\Bin</code> directory.</li>
+            </ul>
+            <li>if the project is a .net solution (.sln) :
+            <ul>
+                <li>the <code>Configuration</code> property is :
+                <ul>
+                    <li><code>Debug</code> if <code>configuration=debug</code></li>
+                    <li><code>Release</code> if <code>configuration=release</code></li>
+                </ul>
+                </li>
+            </ul>
+            </li>
+            <li>for each project file, if a task named <code>post-build-[ProjectFileName]</code> (e.g. <code>post-build-Myproject.sln</code>) exists, it will be executed after the build of the component.</li>
+        </ul>
+    </p>
+    <h3>
+        Examples</h3>
+    <ul class="examples">
+        <li>
+            <p>
+                Build two components. The execution order of the following is :
+                <ol>
+                    <li>building MyProject.vbp</li>
+                    <li>post-build-MyProject.vbp</li>
+                    <li>pre-build-MyDotNetProject.sln</li>
+                    <li>building MyDotNetProject.sln</li>
+                </ol>
+            </p>
+            <pre class="code">
+&lt;target name=&quot;post-build-MyProject.vbp&quot; &gt;
+&lt;/target&gt;
+
+&lt;target name=&quot;pre-build-MyDotNetProject.sln&quot; &gt;
+&lt;/target&gt;
+
+&lt;target name=&quot;build&quot;&gt;
+	&lt;build-component project=&quot;MyProject.vbp&quot; /&gt;
+	&lt;build-component project=&quot;MyDotNetProject.sln&quot; /&gt;
+&lt;/target&gt;
+    </pre>
+        </li>
+    </ul>
+</body>
+</html>

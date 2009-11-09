@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Language" content="en-ca" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <title>&lt;remove-access-rule&gt; Task</title>
+</head>
+<body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="2" class="NavBar">
+        <tr>
+            <td class="NavBar-Cell">
+                <a href="http://nant.sourceforge.net"><b>NAnt</b> </a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                <a href="../index.html">Help</a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                <a href="../tasks/index.html">Task Reference</a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                &lt;remove-access-rule&gt;</td>
+            <td class="NavBar-Cell" align="right">
+                @NAntConsoleVersion@</td>
+        </tr>
+    </table>
+    <h1>
+        &lt;remove-access-rule&gt;</h1>
+    <p>
+        Removes access rules (authorization) to files and directories.
+    </p>
+    <p>
+        Removes all the access rules associated with a <code>ntaccount</code>.
+    </p>
+    <h3>
+        Parameters</h3>
+    <div class="table">
+        <table>
+            <tr>
+                <th>
+                    Attribute</th>
+                <th style="text-align: center;">
+                    Type</th>
+                <th>
+                    Description</th>
+                <th style="text-align: center;">
+                    Required</th>
+            </tr>
+            <tr>
+                <td valign="top">
+                    dir</td>
+                <td style="text-align: center;">
+                    Directory</td>
+                <td>
+                    Directory to apply changes to.
+                </td>
+                <td style="text-align: center;">
+                    False</td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    file</td>
+                <td style="text-align: center;">
+                    File</td>
+                <td>
+                    File to apply changes to.
+                </td>
+                <td style="text-align: center;">
+                    False</td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    share</td>
+                <td style="text-align: center;">
+                    String</td>
+                <td>
+                    The network share to apply changes to. (only FullControl is working).
+                </td>
+                <td style="text-align: center;">
+                    False</td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    ntaccount</td>
+                <td style="text-align: center;">
+                    String</td>
+                <td>
+                    NTAccount (DOMAIN\USERNAME) on which the rights are deleted.
+                </td>
+                <td style="text-align: center;">
+                    True</td>
+            </tr>
+        </table>
+    </div>
+    <h3>Nested Elements:</h3>
+    <!--Element-->
+    <h4>&lt;<a href="../types/fileset.html">fileset</a>&gt;</h4>
+    <div class="nested-element"> Files to apply changes to. </div>
+	<h4>&lt;/<a href="../types/fileset.html">fileset</a>&gt;</h4>
+    <h3>Remarks</h3>
+    <p> Access rules can be removed even if they don't exist. No error will be thrown. </p>
+    <h3>
+        Examples</h3>
+    <ul class="examples">
+        <li>
+            <p>
+                Remove all access rules to user &quot;DOMAIN\User1&quot; on directory &quot;E:\MyApp\Logs&quot;.
+            </p>
+            <pre class="code">
+&lt;remove-access-rule dir=&quot;E:\MyApp\Logs&quot; ntaccount=&quot;DOMAIN\User1&quot; /&gt;
+    </pre>
+        </li>
+        <li>
+            <p>
+                Remove all access rules to user &quot;DOMAIN\User2&quot; on the files of directory &quot;E:\MyApp\Logs&quot;.
+            </p>
+            <pre class="code">
+&lt;remove-access-rule ntaccount=&quot;DOMAIN\User2&quot;&gt;
+    &lt;fileset basedir=&quot;E:\MyApp\Logs&quot;&gt;
+        &lt;include name=&quot;*&quot; /&gt;
+    &lt;/fileset&gt;
+&lt;/remove-access-rule&gt;
+    </pre>
+        </li><li>
+            <p>
+                Remove all access rules to user &quot;DOMAIN\User1&quot; on share &quot;\\SERVER\Share&quot;.
+            </p>
+            <pre class="code">
+&lt;remove-access-rule share=&quot;\\SERVER\Share&quot; ntaccount=&quot;DOMAIN\User1&quot; /&gt;
+    </pre>
+        </li>
+    </ul>
+</body>
+</html>

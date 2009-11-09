@@ -1,0 +1,390 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{64C68824-D965-42C2-96FA-51686E768ADD}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CDS.Framework.Tools.NAntConsole</RootNamespace>
+    <AssemblyName>CDS.Framework.Tools.NAntConsole</AssemblyName>
+    <ApplicationIcon>NAntConsole.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Setup|AnyCPU' ">
+    <OutputPath>bin\Setup\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Activa.LazyParser, Version=1.0.0.55, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\SharpTemplate\Activa.LazyParser.dll</HintPath>
+    </Reference>
+    <Reference Include="Activa.SharpTemplate, Version=0.9.0.30, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\SharpTemplate\Activa.SharpTemplate.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.1.271, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\nant-0.86\lib\common\neutral\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.Comadmin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a262b1d36c993c82, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\comadmin-1.5\Interop.Comadmin.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpSvn, Version=1.6006.1373.40218, Culture=neutral, PublicKeyToken=d729672594885a28, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\SharpSvn-1.6006.1373\SharpSvn.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Configuration\NAntPropertiesCollection.cs" />
+    <Compile Include="Configuration\NAntPropertyElement.cs" />
+    <Compile Include="Configuration\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\SvnRepositoriesCollection.cs" />
+    <Compile Include="Configuration\SvnRepositoryElement.cs" />
+    <Compile Include="Configuration\UpdaterElement.cs" />
+    <Compile Include="Configuration\UpdaterLocation.cs" />
+    <Compile Include="Configuration\UpdaterLocationsCollection.cs" />
+    <Compile Include="Entities\NAntProject.cs" />
+    <Compile Include="Entities\NAntTarget.cs" />
+    <Compile Include="Helpers\NAntExecutionProgressEventArgs.cs" />
+    <Compile Include="Helpers\NAntHelper.cs" />
+    <Compile Include="Configuration\NAntConsoleConfigurationSection.cs" />
+    <Compile Include="Helpers\RemoteHelper.cs" />
+    <Compile Include="Helpers\SvnExecutionProgressEventArgs.cs" />
+    <Compile Include="Helpers\SvnHelper.cs" />
+    <Compile Include="Helpers\TemplateHelper.cs" />
+    <Compile Include="Helpers\UpdateHelper.cs" />
+    <Compile Include="Helpers\ZipHelper.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AddLinkSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AddLinkSelection.Designer.cs">
+      <DependentUpon>AddLinkSelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AskSingleValue.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AskSingleValue.Designer.cs">
+      <DependentUpon>AskSingleValue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\COMComponentsDumper.cs" />
+    <Compile Include="UI\Commands\AddLinkCommand.cs" />
+    <Compile Include="UI\Commands\BaseGenerateCommand.cs" />
+    <Compile Include="UI\Commands\BaseUICommand.cs" />
+    <Compile Include="UI\Commands\CheckForUpdatesCommand.cs" />
+    <Compile Include="UI\Commands\CheckOutUICommand.cs" />
+    <Compile Include="UI\Commands\CommandExecutionResult.cs" />
+    <Compile Include="UI\Commands\CreateBranchCommand.cs" />
+    <Compile Include="UI\Commands\GenerateEmptyProjectCommand.cs" />
+    <Compile Include="UI\Commands\GenerateVB6ProjectCommand.cs" />
+    <Compile Include="UI\Commands\IUICommand.cs" />
+    <Compile Include="UI\COMComponentsExtractor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\COMComponentsExtractor.Designer.cs">
+      <DependentUpon>COMComponentsExtractor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Commands\LinksAnalysisCommand.cs" />
+    <Compile Include="UI\Commands\MergeBranchCommand.cs" />
+    <Compile Include="UI\Commands\NewEnvironmentConfigFileCommand.cs" />
+    <Compile Include="UI\Commands\NewNAntFileCommand.cs" />
+    <Compile Include="UI\Commands\ShowLinksCommand.cs" />
+    <Compile Include="UI\Commands\UpdateCommand.cs" />
+    <Compile Include="UI\Images\Images.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Images.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\LinkAnalysisProgress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\LinkAnalysisProgress.Designer.cs">
+      <DependentUpon>LinkAnalysisProgress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\LinksList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\LinksList.Designer.cs">
+      <DependentUpon>LinksList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MergeBranchExecute.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MergeBranchExecute.Designer.cs">
+      <DependentUpon>MergeBranchExecute.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MergeBranchWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MergeBranchWizard.Designer.cs">
+      <DependentUpon>MergeBranchWizard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\DisplayOnly.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\DisplayOnly.Designer.cs">
+      <DependentUpon>DisplayOnly.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\IISMetabaseDumper.cs" />
+    <Compile Include="UI\IISMetabaseExtractor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\IISMetabaseExtractor.Designer.cs">
+      <DependentUpon>IISMetabaseExtractor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\NAntDisplayTargetsFilter.cs" />
+    <Compile Include="UI\OutputBeautifier.cs" />
+    <Compile Include="UI\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ScrollHelper.cs" />
+    <Compile Include="UI\SvnExplorer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\SvnExplorer.Designer.cs">
+      <DependentUpon>SvnExplorer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SvnExplorerSelection.cs" />
+    <Compile Include="UI\ViewInstall.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ViewInstall.Designer.cs">
+      <DependentUpon>ViewInstall.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\VisualStudioIntegration.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Configuration\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AboutBox.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AddLinkSelection.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AddLinkSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AskSingleValue.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AskSingleValue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\COMComponentsExtractor.resx">
+      <DependentUpon>COMComponentsExtractor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Images\Images.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Images.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\LinkAnalysisProgress.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>LinkAnalysisProgress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\LinksList.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>LinksList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MergeBranchExecute.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MergeBranchExecute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MergeBranchWizard.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MergeBranchWizard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\DisplayOnly.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DisplayOnly.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\IISMetabaseExtractor.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>IISMetabaseExtractor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MainForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\SvnExplorer.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SvnExplorer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ViewInstall.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ViewInstall.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="NAntConsole.ico" />
+    <Content Include="Templates\VB6Project\Bin\svn-properties.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\VB6Project\Compatibility\svn-properties.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\VB6Project\Dependencies\svn-properties.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\VB6Project\Environment\svn-properties.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\VB6Project\Sources\svn-properties.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UI\Images\Accept.png" />
+    <Content Include="UI\Images\Add.png" />
+    <Content Include="UI\Images\Branch.png" />
+    <Content Include="UI\Images\Cancel.png" />
+    <Content Include="UI\Images\COM.ico" />
+    <Content Include="UI\Images\COM.png" />
+    <Content Include="UI\Images\COMComponent.png" />
+    <Content Include="UI\Images\COMLibrary.png" />
+    <Content Include="UI\Images\COMServer.png" />
+    <Content Include="UI\Images\ConfigFile.png" />
+    <Content Include="UI\Images\NAntConsole.png" />
+    <Content Include="UI\Images\Refresh.png" />
+    <Content Include="UI\Images\WaitingTask.png" />
+    <Content Include="UI\Images\CheckOut.png" />
+    <Content Include="UI\Images\EmptyProject.png" />
+    <Content Include="UI\Images\Folder.png" />
+    <Content Include="UI\Images\Help.png" />
+    <Content Include="UI\Images\IISMetabase.ico" />
+    <Content Include="UI\Images\IISMetabase.png" />
+    <Content Include="UI\Images\IISWebServer.png" />
+    <Content Include="UI\Images\IISWebVirtualDir.png" />
+    <Content Include="UI\Images\Merge.png" />
+    <Content Include="UI\Images\NAntConsole.ico" />
+    <Content Include="UI\Images\NAntLogo.png" />
+    <Content Include="UI\Images\NewProject.png" />
+    <Content Include="UI\Images\OpenFolder.png" />
+    <Content Include="UI\Images\OpenProject.png" />
+    <Content Include="UI\Images\Settings.png" />
+    <Content Include="UI\Images\SVN.ico" />
+    <Content Include="UI\Images\SVN.png" />
+    <Content Include="UI\Images\VB6.png" />
+    <Content Include="UI\Images\VS.png" />
+    <Content Include="UI\xsl\Nant-html.xsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <Content Include="Templates\EmptyProject\Environment\%24[projectName].default.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\EmptyProject\%24[projectName].nant">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\EmptyProject\Environment\svn-properties.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\EnvFile\env.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\NAntFile\nantfile.nant">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\VB6Project\%24[projectName].nant">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\VB6Project\Environment\%24[projectName].default.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\VB6Project\Sources\Components\svn-properties.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UI\Images\Link.ico" />
+    <Content Include="UI\Images\Link.png" />
+    <Content Include="UI\Images\LinkAdd.ico" />
+    <Content Include="UI\Images\LinkAdd.png" />
+    <Content Include="UI\Images\LinkAnalysis.png" />
+    <Content Include="UI\Images\SVNUpdate.png" />
+    <Content Include="UI\Images\SVNUpdateAvalaibles.png" />
+    <Content Include="UI\Images\Update.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NAntConsoleTasks\NAntConsoleTasks.csproj">
+      <Project>{9BF29E28-39D0-47A4-A071-EFD00397936C}</Project>
+      <Name>NAntConsoleTasks</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

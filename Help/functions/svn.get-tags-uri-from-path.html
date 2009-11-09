@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <!-- Documenting Contains-->
+  <head>
+    <meta http-equiv="Content-Language" content="en-ca" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <title>svn::get-tags-uri-from-path Function</title>
+  </head>
+  <body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="2" class="NavBar">
+      <tr>
+        <td class="NavBar-Cell">
+          <a href="http://nant.sourceforge.net">
+            <b>NAnt</b>
+          </a>
+          <img alt="-&gt;" src="../images/arrow.gif" />
+          <a href="../index.html">Help</a>
+          <img alt="-&gt;" src="../images/arrow.gif" />
+          <a href="index.html">Function Reference</a>
+          <img alt="-&gt;" src="../images/arrow.gif" /> svn::get-tags-uri-from-path</td>
+        <td class="NavBar-Cell" align="right">
+                        @NAntConsoleVersion@</td>
+      </tr>
+    </table>
+    <h1>svn::get-tags-uri-from-path</h1>
+    
+    <p> Returns the corresponding /tags svn uri attached to a checkout local folder (if the local folder is a /trunk or a /branch/x). </p>
+    <h3>Usage</h3>
+    <code>string svn::get-tags-uri-from-path(<span class="parameter">path</span>)
+            </code>
+    <p />
+    <h3>Parameters</h3>
+    <div class="table">
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>path</td>
+          <td>string</td>
+          <td>The local folder path. If null uses Project.BaseDirectory.</td>
+        </tr>
+      </table>
+    </div>
+    <h3>Return Value</h3>
+	The svn '/tags' uri attached to the local folder.
+    <h3>Examples</h3>
+	<ul class="examples">
+		<li><pre class="code">svn::get-tags-uri-from-path() ==&gt; '.../tags'</pre></li>
+		<li><pre class="code">svn::get-tags-uri-from-path('E:\Sources') ==&gt; '.../tags'</pre></li>
+	</ul>
+            </div></body>
+</html>

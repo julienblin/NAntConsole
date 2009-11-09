@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Language" content="en-ca" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <title>&lt;env-include&gt; Task</title>
+</head>
+<body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="2" class="NavBar">
+        <tr>
+            <td class="NavBar-Cell">
+                <a href="http://nant.sourceforge.net"><b>NAnt</b> </a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                <a href="../index.html">Help</a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                <a href="../tasks/index.html">Task Reference</a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                &lt;env-include&gt;</td>
+            <td class="NavBar-Cell" align="right">
+                @NAntConsoleVersion@</td>
+        </tr>
+    </table>
+    <h1>
+        &lt;env-include&gt;</h1>
+    <p>
+        Include files depending on the machine where the execution takes place.
+    </p>
+    <h3>
+        Rules</h3>
+    <p>
+        <code>&lt;env-include /&gt;</code> will try to include files in the <code>.\Environment</code> folder following these rules :
+        <ul>
+            <li>the file names must be *.*.config (e.g. <code>lsa.dev.config</code>);</li>
+            <li>all the files named *.[machinename].config;</li>
+            <li>if an environment variable named ENV has been set, all the files named *.[ENV-value].config if * as not been included previously;</li>
+            <li>all the files named *.default.config if * as not been included previously.</li>
+        </ul>
+    </p>
+    <h3>
+        Examples</h3>
+    <ul class="examples">
+        <li>
+            <p>
+                Call env-include.
+            </p>
+            <pre class="code">
+&lt;env-include /&gt;
+    </pre>
+        </li>
+    </ul>
+</body>
+</html>

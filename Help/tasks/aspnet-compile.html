@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Language" content="en-ca" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <title>&lt;aspnet-compile&gt; Task</title>
+</head>
+<body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="2" class="NavBar">
+        <tr>
+            <td class="NavBar-Cell">
+                <a href="http://nant.sourceforge.net"><b>NAnt</b> </a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                <a href="../index.html">Help</a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                <a href="../tasks/index.html">Task Reference</a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                &lt;aspnet-compile&gt;</td>
+            <td class="NavBar-Cell" align="right">
+                @NAntConsoleVersion@</td>
+        </tr>
+    </table>
+    <h1>
+        &lt;aspnet-compile&gt;</h1>
+    <p>
+        Pre-compile ASP.NET websites.
+    </p>
+    <p>
+        Uses the sdk utility <code>aspnet_compiler</code>.
+    </p>
+    <h3>
+        Parameters</h3>
+    <div class="table">
+        <table>
+            <tr>
+                <th>
+                    Attribute</th>
+                <th style="text-align: center;">
+                    Type</th>
+                <th>
+                    Description</th>
+                <th style="text-align: center;">
+                    Required</th>
+            </tr>
+            <tr>
+                <td valign="top">
+                    srcDir</td>
+                <td style="text-align: center;">
+                    Directory</td>
+                <td>
+                    The directory where the website to compiled resides (usually the root of the website project under Visual Studio.
+                </td>
+                <td style="text-align: center;">
+                    True</td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    targetDir</td>
+                <td style="text-align: center;">
+                    Directory</td>
+                <td>
+                    The directory where the precompiled website will be generated.
+                </td>
+                <td style="text-align: center;">
+                    True</td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    updatable</td>
+                <td style="text-align: center;">
+                    Bool</td>
+                <td>
+                    True to allow the website to be updatable, false otherwise. The default is <strong>false</strong>.
+                </td>
+                <td style="text-align: center;">
+                    False</td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    debug</td>
+                <td style="text-align: center;">
+                    Bool</td>
+                <td>
+                    True to allow the website to be debugable, false otherwise. The default is <strong>false</strong>.
+                </td>
+                <td style="text-align: center;">
+                    False</td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    fixedNames</td>
+                <td style="text-align: center;">
+                    Bool</td>
+                <td>
+                    True to generate fixed assembly names, false otherwise. The default is <strong>false</strong>.
+                </td>
+                <td style="text-align: center;">
+                    False</td>
+            </tr>
+        </table>
+    </div>
+    <h3>
+        Examples</h3>
+    <ul class="examples">
+        <li>
+            <p>
+                Pre-compile a website using fixed names.
+            </p>
+            <pre class="code">
+&lt;aspnet-compile srcDir=&quot;E:\Sources\Website&quot; targetDir=&quot;E:\Published&quot; fixedNames=&quot;true&quot; /&gt;
+    </pre>
+        </li>
+    </ul>
+</body>
+</html>

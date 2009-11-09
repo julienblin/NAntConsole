@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Language" content="en-ca" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <title>&lt;vb6-update-version&gt; Task</title>
+</head>
+<body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="2" class="NavBar">
+        <tr>
+            <td class="NavBar-Cell">
+                <a href="http://nant.sourceforge.net"><b>NAnt</b> </a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                <a href="../index.html">Help</a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                <a href="../tasks/index.html">Task Reference</a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                &lt;vb6-update-version&gt;</td>
+            <td class="NavBar-Cell" align="right">
+                @NAntConsoleVersion@</td>
+        </tr>
+    </table>
+    <h1>
+        &lt;vb6-update-version&gt;</h1>
+    <p>
+        Updates a <code>.vbp</code> file generation version.
+    </p>
+    <h3>
+        Parameters</h3>
+    <div class="table">
+        <table>
+            <tr>
+                <th>
+                    Attribute</th>
+                <th style="text-align: center;">
+                    Type</th>
+                <th>
+                    Description</th>
+                <th style="text-align: center;">
+                    Required</th>
+            </tr>
+            <tr>
+                <td valign="top">
+                    project</td>
+                <td style="text-align: center;">
+                    file</td>
+                <td>
+                    <code>.vbp</code> file to modify.
+                </td>
+                <td style="text-align: center;">
+                    True</td>
+            </tr>
+			<tr>
+                <td valign="top">
+                    version</td>
+                <td style="text-align: center;">
+                    Version</td>
+                <td>
+                    Version to set (using <code>Major.Minor.<strong>Build</strong></code>). The default takes the value of the <code>version</code> property.
+                </td>
+                <td style="text-align: center;">
+                    False</td>
+            </tr>
+        </table>
+    </div>
+    <h3>
+        Examples</h3>
+    <ul class="examples">
+        <li>
+            <p>
+                Sets the version value of &quot;MyProject.vbp&quot; to 1.2.3.
+            </p>
+            <pre class="code">
+&lt;vb6-update-version project=&quot;MyProject.vbp&quot; version=&quot;1.2.3.4&quot; /&gt;
+    </pre>
+        </li>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Language" content="en-ca" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <title>&lt;iis-typed-property&gt; Type</title>
+  </head>
+  <body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="2" class="NavBar">
+      <tr>
+        <td class="NavBar-Cell">
+          <a href="http://nant.sourceforge.net">
+            <b>NAnt</b>
+          </a>
+          <img alt="-&gt;" src="../images/arrow.gif" />
+          <a href="../index.html">Help</a>
+          <img alt="-&gt;" src="../images/arrow.gif" />
+          <a href="../types/index.html">Type Reference</a>
+          <img alt="-&gt;" src="../images/arrow.gif" /> &lt;iis-typed-property&gt;</td>
+        <td class="NavBar-Cell" align="right">
+                        @NAntConsoleVersion@</td>
+      </tr>
+    </table>
+    <h1>&lt;iis-typed-property&gt;</h1>
+    <p> Represent a property on the IIS Metabase by a name, a value and a type. </p>
+    <h3>Parameters</h3>
+    <div class="table">
+      <table>
+        <tr>
+          <th>Attribute</th>
+          <th style="text-align: center;">Type</th>
+          <th>Description</th>
+          <th style="text-align: center;">Required</th>
+        </tr>
+        <tr>
+          <td valign="top">name</td>
+          <td style="text-align: center;">string</td>
+          <td> The name of the property (as represented in the IIS Metabase). </td>
+          <td style="text-align: center;">True</td>
+        </tr>
+        <tr>
+          <td valign="top">value</td>
+          <td style="text-align: center;">string</td>
+          <td> The value of the property when the type is defined as String or DWORD - null otherwise. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">type</td>
+          <td style="text-align: center;">string</td>
+          <td> Type can be String, DWORD or MultiString - The default is <strong>String</strong>. </td>
+          <td style="text-align: center;">False</td>
+        </tr>
+       </table>
+    </div>
+    <h3>Nested Elements:</h3>
+    <h4>&lt;entry&gt;</h4>
+    <div class="nested-element"> Defines a value when the type is MultiString. </div>
+    <h4>&lt;/entry&gt;</h4>
+    <h3>
+        Examples</h3>
+    <ul class="examples">
+        <li>
+            <p>
+                Defines a property named <code>AppFriendlyName</code> with a value &quot;ReferenceWebSite&quot; and a <code>String</code> type.
+            </p>
+            <pre class="code">
+&lt;property name=&quot;AppFriendlyName&quot; value=&quot;ReferenceWebSite&quot; /&gt;
+    </pre>
+        </li>
+        <li>
+            <p>
+                Defines a property named <code>ServerBindings</code> with two values and a <code>MultiString</code> type.
+            </p>
+            <pre class="code">
+&lt;property name=&quot;ServerBindings&quot; type=&quot;MultiString&quot; &gt;
+    &lt;entry value=&quot;:80:www.ref.website.net&quot; /&gt;
+    &lt;entry value=&quot;:443:www.ref.website.net&quot; /&gt;
+&lt;property&gt;
+    </pre>
+        </li>
+    </ul>
+  </body>
+</html>

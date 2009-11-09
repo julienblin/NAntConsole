@@ -1,0 +1,192 @@
+﻿<?xml version="1.0"?>
+<project name="NAntConsole" default="build" xmlns="http://nant.sf.net/schemas/nant.xsd">
+
+  <property name="dir.bin" value="Bin" />
+  <property name="svn.infos.tempfile" value="${dir.bin}\SvnInfos.xml" />
+  <property name="svn.tags.uri" value="http://svn.cgiquebec.ca/repos/CDS/Framework/Tools/NAntConsole/tags" />
+	
+  <property name="now" value="${datetime::now()}" readonly="true" />
+  <property name="elapsedSecondsToday" value="${(datetime::get-hour(now) * 3600 + datetime::get-minute(now) * 60 + datetime::get-second(now)) / 10}" readonly="true" />
+  <property name="version" value="${datetime::get-year(now) - 2000}.${datetime::get-month(now)}.${datetime::get-day(now)}.${elapsedSecondsToday}" readonly="true" />
+	
+  <target name="clean">
+    <delete>
+      <fileset basedir="${dir.bin}">
+        <include name="**/*" />
+      </fileset>
+    </delete>
+  </target>
+  
+  <target name="copy-dependencies">
+    <copy todir="${dir.bin}" overwrite="true">
+      <fileset basedir="Dependencies\nant-0.86">
+        <include name="**/*.dll" />
+        <include name="**/*.exe" />
+        <include name="**/*.config" />
+      </fileset>
+    </copy>
+	<tlbimp typelib="Dependencies\comadmin-1.5\comadmin.dll" output="Dependencies\comadmin-1.5\Interop.Comadmin.dll" keyfile="Dependencies\comadmin-1.5\Interop.Comadmin.snk" namespace="Comadmin" />
+	<tlbimp typelib="Dependencies\activeds-5.2.3790.0\activeds.tlb" output="Dependencies\activeds-5.2.3790.0\Interop.Activeds.dll" keyfile="Dependencies\activeds-5.2.3790.0\Interop.Activeds.snk" namespace="Activeds" />
+	<copy todir="${dir.bin}\lib\net\2.0" overwrite="true">
+      <fileset basedir="Dependencies\TaskScheduler">
+		<include name="TaskScheduler.dll" />
+      </fileset>
+    </copy>
+	<copy todir="${dir.bin}" overwrite="true">
+      <fileset basedir="Dependencies\pstools-2.44">
+        <include name="pdh.dll" />
+        <include name="psexec.exe" />
+      </fileset>
+    </copy>
+	<copy todir="${dir.bin}" overwrite="true">
+      <fileset basedir="Dependencies\dcomperm">
+        <include name="DComPerm.exe" />
+		<include name="vcredist_x86.exe" />
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="build" depends="clean, copy-dependencies">
+	<asminfo output="Sources\GlobalAssemblyInfo.cs" language="CSharp">
+		<imports>
+			<import namespace="System" />
+			<import namespace="System.Reflection" />
+			<import namespace="System.Runtime.CompilerServices" />
+			<import namespace="System.Runtime.InteropServices" />
+		</imports>
+		<attributes>
+			<attribute type="AssemblyConfigurationAttribute" value="" />
+			<attribute type="AssemblyCompanyAttribute" value="CGI" />
+			<attribute type="AssemblyProductAttribute" value="NAntConsole" />
+			<attribute type="AssemblyCopyrightAttribute" value="Copyright © CGI 2009" />
+			<attribute type="AssemblyTrademarkAttribute" value="" />
+			<attribute type="AssemblyCultureAttribute" value="" />
+			<attribute type="ComVisibleAttribute" value="false" />
+			<attribute type="AssemblyVersionAttribute" value="${version}" />
+			<attribute type="AssemblyFileVersionAttribute" value="${version}" />
+		</attributes>
+	</asminfo>
+	
+	<exec program="${framework::get-tool-path('msbuild.exe')}">
+		<arg line="&quot;${project::get-base-directory()}\Sources\CDS.Framework.Tools.NAntConsole.sln&quot; /p:Configuration=Release" />
+	</exec>
+	
+	<loadtasks assembly="${dir.bin}\CDS.Framework.Tools.NAntConsole.NAntConsoleTasks.dll" />
+	
+	<mkdir dir="${dir.bin}\Help" />
+	<copy todir="${dir.bin}\Help">
+		<fileset basedir="Help">
+			<include name="**/*" />
+		</fileset>
+		<filterchain>
+			<replacetokens>
+				<token key="NAntConsoleVersion" value="v${version}" />
+			</replacetokens>
+		</filterchain>
+	</copy>
+	
+	<mkdir dir="${dir.bin}\Schemas" />
+    <nantschema output="${dir.bin}\Schemas\nant.xsd" target-ns="http://nant.sf.net/schemas/nant.xsd"/>
+	
+  </target>
+  
+  <target name="generate-releasenotes">
+	<xmlpeek file="${dir.bin}\CDS.Framework.Tools.NAntConsole.exe.config" property="releasenotes.path" xpath="/configuration/nantconsole/@releaseNotes" />
+	<echo message="Retreiving release notes from svn..." />
+	<exec program="svn" output="${svn.infos.tempfile}">
+		<arg line="info ${project::get-base-directory()} --xml" />
+	</exec>
+	<xmlpeek file="${svn.infos.tempfile}" property="svn.uri" xpath="/info/entry/url" />
+	<delete file="${svn.infos.tempfile}" />
+	<exec program="svn" output="${dir.bin}\${releasenotes.path}">
+		<arg line="log ${svn.uri}" />
+	</exec>
+  </target>
+  
+  <target name="create-package">
+	<property name="package.product.guid" value="${guid::generate-guid()}" />
+	
+	<!-- Change Product ID -->
+	<xmlpoke file="${project::get-base-directory()}\Bin\CDS.Framework.Tools.NAntConsole.exe.config" xpath="/configuration/nantconsole/updater/@productCode" value="${package.product.guid}" />
+	<xmlpoke file="${project::get-base-directory()}\Setup\NAntConsole.Setup.wxs" xpath="/wx:Wix/wx:Product/@Id" value="{${package.product.guid}}">
+		<namespaces>
+			<namespace prefix="wx" uri="http://schemas.microsoft.com/wix/2006/wi" />
+		</namespaces>
+	</xmlpoke>
+	
+	<!-- Generate the include -->
+	<exec program="cscript.exe">
+		<arg value="${project::get-base-directory()}\Setup\generate-install-script.js" />
+		<arg value="${project::get-base-directory()}\Bin" />
+		<arg value="${project::get-base-directory()}\Setup\Include.wxi" />
+	</exec>
+	<xmlpoke file="${project::get-base-directory()}\Setup\NAntConsole.Setup.wxs" xpath="/wx:Wix/wx:Product/@Version" value="${version}">
+		<namespaces>
+			<namespace prefix="wx" uri="http://schemas.microsoft.com/wix/2006/wi" />
+		</namespaces>
+	</xmlpoke>
+	<xmlpoke file="${project::get-base-directory()}\Setup\NAntConsole.Setup.wxs" xpath="//wx:Control[@Id='BannerText']/@Text" value="{\VSI_MS_Sans_Serif16.0_1_0}[ProductName] - ${version}" >
+		<namespaces>
+			<namespace prefix="wx" uri="http://schemas.microsoft.com/wix/2006/wi" />
+		</namespaces>
+	</xmlpoke>
+	<xmlpoke file="${project::get-base-directory()}\Setup\NAntConsole.Setup.wxs" xpath="//wx:Dialog/@Title" value="[ProductName] - ${version}" >
+		<namespaces>
+			<namespace prefix="wx" uri="http://schemas.microsoft.com/wix/2006/wi" />
+		</namespaces>
+	</xmlpoke>
+	<trycatch>
+		<try>
+			<exec program="Dependencies\wix3\candle.exe">
+				<arg value="${project::get-base-directory()}\Setup\NAntConsole.Setup.wxs" />
+				<arg value="-dredist_folder=${project::get-base-directory()}\Bin" />
+				<arg value="-dversion=${version}" />
+			</exec>
+			<exec program="Dependencies\wix3\light.exe">
+				<arg value="${project::get-base-directory()}\NAntConsole.Setup.wixobj" />
+				<arg value="-out" />
+				<arg value="${package.name}" />
+			</exec>
+		</try>
+		<finally>
+			<delete>
+				<fileset basedir="${project::get-base-directory()}">
+					<include name="*.wix*" />
+				</fileset>
+			</delete>
+		</finally>
+	</trycatch>
+  </target>
+  
+  <target name="package" depends="build, generate-releasenotes">
+	<property name="package.name" value="NAntConsole-${version}.msi" />
+	<call target="create-package" />
+  </target>
+  
+  <target name="release" depends="build, generate-releasenotes">
+	
+	<!-- Release for T2 in Quebec city -->
+	<property name="update.location.dir" value="Y:\Techno\NAntConsole" />
+	<xmlpoke file="${project::get-base-directory()}\Bin\CDS.Framework.Tools.NAntConsole.exe.config" xpath="/configuration/nantconsole/updater/locations/location/@path" value="${update.location.dir}" />
+	<property name="package.name" value="NAntConsole-${version}-T2.msi" />
+	<call target="create-package" />
+	<copy file="${package.name}" tofile="${update.location.dir}\${version}\NAntConsole-${version}.msi" failonerror="false" />
+	
+	<!-- Release for T1 in Montreal -->
+	<property name="update.location.dir" value="\\mtlmdvweb001.development.studio.cdsorg.net\Packages\Framework\Tools\NAntConsole" />
+	<xmlpoke file="${project::get-base-directory()}\Bin\CDS.Framework.Tools.NAntConsole.exe.config" xpath="/configuration/nantconsole/updater/locations/location/@path" value="${update.location.dir}" />
+	<copy file="Setup\NAnt.exe.config-T1" tofile="Bin\NAnt.exe.config" overwrite="true" />
+	<property name="package.name" value="NAntConsole-${version}-T1.msi" />
+	<call target="create-package" />
+	<copy file="${package.name}" tofile="${update.location.dir}\${version}\NAntConsole-${version}.msi" failonerror="false" />
+	
+	<exec program="svn">
+		<arg line="commit &quot;${project::get-base-directory()}&quot; --message &quot;Release ${version}.&quot;" />
+	</exec>
+	<exec program="svn">
+		<arg line="copy &quot;${svn.uri}&quot; &quot;${svn.tags.uri}/${version}&quot; --message &quot;Release ${version}.&quot;" />
+	</exec>
+	
+  </target>
+  
+</project>

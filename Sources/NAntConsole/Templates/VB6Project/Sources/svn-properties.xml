@@ -1,0 +1,5 @@
+<properties>
+  <property name="tsvn:logminsize">10</property>
+  <property name="tsvn:lockmsgminsize">10</property>
+  <property name="svn:ignore">*.dll|*.exp|*.lib|*.vbw</property>
+</properties>

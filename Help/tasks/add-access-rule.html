@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Language" content="en-ca" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <title>&lt;add-access-rule&gt; Task</title>
+</head>
+<body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="2" class="NavBar">
+        <tr>
+            <td class="NavBar-Cell">
+                <a href="http://nant.sourceforge.net"><b>NAnt</b> </a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                <a href="../index.html">Help</a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                <a href="../tasks/index.html">Task Reference</a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                &lt;add-access-rule&gt;</td>
+            <td class="NavBar-Cell" align="right">
+                @NAntConsoleVersion@</td>
+        </tr>
+    </table>
+    <h1>
+        &lt;add-access-rule&gt;</h1>
+    <p>
+        Adds access rules (authorization) to files and directories.
+    </p>
+    <h3>
+        Parameters</h3>
+    <div class="table">
+        <table>
+            <tr>
+                <th>
+                    Attribute</th>
+                <th style="text-align: center;">
+                    Type</th>
+                <th>
+                    Description</th>
+                <th style="text-align: center;">
+                    Required</th>
+            </tr>
+            <tr>
+                <td valign="top">
+                    dir</td>
+                <td style="text-align: center;">
+                    Directory</td>
+                <td>
+                    Directory to apply changes to.
+                </td>
+                <td style="text-align: center;">
+                    False</td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    file</td>
+                <td style="text-align: center;">
+                    File</td>
+                <td>
+                    File to apply changes to.
+                </td>
+                <td style="text-align: center;">
+                    False</td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    share</td>
+                <td style="text-align: center;">
+                    String</td>
+                <td>
+                    The network share to apply changes to. (only FullControl is working).
+                </td>
+                <td style="text-align: center;">
+                    False</td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    ntaccount</td>
+                <td style="text-align: center;">
+                    String</td>
+                <td>
+                    NTAccount (DOMAIN\USERNAME) on which the rights are added.
+                </td>
+                <td style="text-align: center;">
+                    True</td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    rights</td>
+                <td style="text-align: center;">
+                    <a href="http://msdn.microsoft.com/en-us/library/System.Security.AccessControl.FileSystemRights">FileSystemRights</a></td>
+                <td>
+                    Rights to add.
+                </td>
+                <td style="text-align: center;">
+                    False</td>
+            </tr>
+            <tr>
+                <td valign="top">inheritance</td>
+                <td style="text-align: center;">
+                    <a href="http://msdn.microsoft.com/en-us/library/System.Security.AccessControl.InheritanceFlags">InheritanceFlags</a></td>
+                <td>
+                    Inheritance flags. The defaults are <strong>ContainerInherit | ObjectInherit</strong>
+                </td>
+                <td style="text-align: center;">False</td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    propagation</td>
+                <td style="text-align: center;">
+                    <a href="http://msdn.microsoft.com/en-us/library/System.Security.AccessControl.PropagationFlags">
+                        PropagationFlags</a></td>
+                <td>
+                    Propagation flags. The default is <strong>None</strong>
+                </td>
+                <td style="text-align: center;">
+                    False</td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    accessControlType</td>
+                <td style="text-align: center;">
+                    <a href="http://msdn.microsoft.com/en-us/library/System.Security.AccessControl.AccessControlType">
+                        AccessControlType</a></td>
+                <td>
+                    AccessControl type. The default is <strong>Allow</strong>
+                </td>
+                <td style="text-align: center;">
+                    False</td>
+            </tr>
+        </table>
+    </div>
+    <h3>Nested Elements:</h3>
+    <!--Element-->
+    <h4>&lt;<a href="../types/fileset.html">fileset</a>&gt;</h4>
+    <div class="nested-element"> Files to apply changes to. </div>
+	<h4>&lt;/<a href="../types/fileset.html">fileset</a>&gt;</h4>
+    <h3>Remarks</h3>
+    <p> Access rules can be added even if they already exists. The Windows API will take care of duplication. </p>
+    <h3>
+        Examples</h3>
+    <ul class="examples">
+        <li>
+            <p>
+                Add an access rule to allow user &quot;DOMAIN\User1&quot; to write files into directory &quot;E:\MyApp\Logs&quot; and all subdirectories.
+            </p>
+            <pre class="code">
+&lt;add-access-rule dir=&quot;E:\MyApp\Logs&quot; ntaccount=&quot;DOMAIN\User1&quot; rights=&quot;Write&quot; propagation=&quot;InheritOnly&quot; /&gt;
+    </pre>
+        </li>
+        <li>
+            <p>
+                Add an access rule to allow user &quot;DOMAIN\User2&quot; to read all the <strong>existing</strong> files into directory &quot;E:\MyApp\Logs&quot;.
+            </p>
+            <pre class="code">
+&lt;add-access-rule ntaccount=&quot;DOMAIN\User2&quot; rights=&quot;Read&quot;&gt;
+    &lt;fileset basedir=&quot;E:\MyApp\Logs&quot;&gt;
+        &lt;include name=&quot;*&quot; /&gt;
+    &lt;/fileset&gt;
+&lt;/add-access-rule&gt;
+    </pre>
+        </li>
+		<li>
+            <p>
+                Add an access rule to allow user &quot;DOMAIN\User1&quot; Full Control to network share &quot;SERVER\Share&quot;
+            </p>
+            <pre class="code">
+&lt;add-access-rule share=&quot;SERVER\Share&quot; ntaccount=&quot;DOMAIN\User1&quot; /&gt;
+    </pre>
+        </li>
+    </ul>
+</body>
+</html>

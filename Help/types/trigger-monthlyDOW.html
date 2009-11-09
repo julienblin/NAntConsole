@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Language" content="en-ca" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <title>&lt;monthlyDOW&gt; Type</title>
+  </head>
+  <body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="2" class="NavBar">
+      <tr>
+        <td class="NavBar-Cell">
+          <a href="http://nant.sourceforge.net">
+            <b>NAnt</b>
+          </a>
+          <img alt="-&gt;" src="../images/arrow.gif" />
+          <a href="../index.html">Help</a>
+          <img alt="-&gt;" src="../images/arrow.gif" />
+          <a href="../types/index.html">Type Reference</a>
+          <img alt="-&gt;" src="../images/arrow.gif" /> &lt;monthlyDOW&gt;</td>
+        <td class="NavBar-Cell" align="right">
+                        @NAntConsoleVersion@</td>
+      </tr>
+    </table>
+    <h1>&lt;monthlyDOW&gt;</h1>
+    <p> Trigger that fires on specific days, weeks and months.</p>
+    <h3>Parameters</h3>
+    <div class="table">
+      <table>
+        <tr>
+          <th>Attribute</th>
+          <th style="text-align: center;">Type</th>
+          <th>Description</th>
+          <th style="text-align: center;">Required</th>
+        </tr>
+        <tr>
+          <td valign="top">beginDate</td>
+          <td style="text-align: center;">DateTime</td>
+          <td> The beginning date of the trigger. The default is <strong>today</strong>.</td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">endDate</td>
+          <td style="text-align: center;">DateTime</td>
+          <td> The end date of the trigger. The default is <strong>unbounded</strong>.</td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">disabled</td>
+          <td style="text-align: center;">bool</td>
+          <td> True to disable the trigger, false otherwise. The default is <strong>false</strong>.</td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">durationMinutes</td>
+          <td style="text-align: center;">int</td>
+          <td> Number of minutes after the trigger fires that it remains active.</td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">intervalMinutes</td>
+          <td style="text-align: center;">int</td>
+          <td> Number of minutes between executions for a task that is to be run repeatedly.</td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">killAtDurationEnd</td>
+          <td style="text-align: center;">bool</td>
+          <td> true to kill (terminate) the task when DurationMinutes expires, false otherwise. The default is <strong>false</strong>.</td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">startHour</td>
+          <td style="text-align: center;">short</td>
+          <td> Hour of the day that trigger will fire (24 hour clock).</td>
+          <td style="text-align: center;">True</td>
+        </tr>
+        <tr>
+          <td valign="top">startMinute</td>
+          <td style="text-align: center;">short</td>
+          <td> Minute of the hour that trigger will fire.</td>
+          <td style="text-align: center;">True</td>
+        </tr>
+        <tr>
+          <td valign="top">months</td>
+          <td style="text-align: center;"><a href="..\enums\TaskScheduler.MonthsOfTheYear.html">MonthsOfTheYear</a></td>
+          <td> Day of the week on which the trigger fires.</td>
+          <td style="text-align: center;">False</td>
+        </tr>
+        <tr>
+          <td valign="top">weekDays</td>
+          <td style="text-align: center;"><a href="..\enums\TaskScheduler.DaysOfTheWeek.html">DaysOfTheWeek</a></td>
+          <td> Day of the week on which the trigger fires.</td>
+          <td style="text-align: center;">True</td>
+        </tr>
+        <tr>
+          <td valign="top">whichWeeks</td>
+          <td style="text-align: center;"><a href="..\enums\TaskScheduler.WhichWeek.html">WhichWeek</a></td>
+          <td> Weeks of the month in which trigger will fire.</td>
+          <td style="text-align: center;">True</td>
+        </tr>
+       </table>
+    </div>
+    <h3>
+        Examples</h3>
+    <ul class="examples">
+        <li>
+            <p>
+                Creates a trigger that fires every second monday each month at 11:00 AM.
+            </p>
+            <pre class="code">
+&lt;monthlyDOW weekDays=&quot;Monday&quot; whichWeeks=&quot;SecondWeek&quot; startHour=&quot;11&quot; startMinute=&quot;0&quot; /&gt;
+    </pre>
+        </li>
+    </ul>
+  </body>
+</html>

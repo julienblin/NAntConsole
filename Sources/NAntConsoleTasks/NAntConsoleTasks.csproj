@@ -1,0 +1,215 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9BF29E28-39D0-47A4-A071-EFD00397936C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CDS.Framework.Tools.NAntConsole.NAntConsoleTasks</RootNamespace>
+    <AssemblyName>CDS.Framework.Tools.NAntConsole.NAntConsoleTasks</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Setup|AnyCPU' ">
+    <OutputPath>bin\Setup\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Interop.Activeds, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d1d395bbc65950f9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\activeds-5.2.3790.0\Interop.Activeds.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.Comadmin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a262b1d36c993c82, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\comadmin-1.5\Interop.Comadmin.dll</HintPath>
+    </Reference>
+    <Reference Include="NAnt.CompressionTasks, Version=0.86.2898.0, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\nant-0.86\NAnt.CompressionTasks.dll</HintPath>
+    </Reference>
+    <Reference Include="NAnt.Core, Version=0.86.2898.0, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\nant-0.86\NAnt.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NAnt.DotNetTasks, Version=0.86.2898.0, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\nant-0.86\NAnt.DotNetTasks.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpSvn, Version=1.6006.1373.40218, Culture=neutral, PublicKeyToken=d729672594885a28, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\SharpSvn-1.6006.1373\SharpSvn.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TaskScheduler, Version=1.3.2889.25680, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\TaskScheduler\TaskScheduler.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Functions\COMFunctions.cs" />
+    <Compile Include="Functions\UserFunctions.cs" />
+    <Compile Include="Functions\GuidFunctions.cs" />
+    <Compile Include="Functions\FileFunctions.cs" />
+    <Compile Include="Functions\IISFunctions.cs" />
+    <Compile Include="Functions\SVNFunctions.cs" />
+    <Compile Include="Functions\MsiFunctions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\COM\DCOMPermTask.cs" />
+    <Compile Include="Tasks\Dialogs\AskUserCredentialsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tasks\Dialogs\AskUserCredentialsForm.Designer.cs">
+      <DependentUpon>AskUserCredentialsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\Dialogs\AskUserCredentialsTask.cs" />
+    <Compile Include="Tasks\Dialogs\AskUserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tasks\Dialogs\AskUserForm.Designer.cs">
+      <DependentUpon>AskUserForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\Dialogs\AskUserTask.cs" />
+    <Compile Include="Tasks\Collections\ListLoopTask.cs" />
+    <Compile Include="Tasks\Collections\ListManager.cs" />
+    <Compile Include="Tasks\Collections\ListTask.cs" />
+    <Compile Include="Tasks\Composite\BaseCompositeTask.cs" />
+    <Compile Include="Tasks\Composite\BuildComponentTask.cs" />
+    <Compile Include="Tasks\Composite\CompositeConstants.cs" />
+    <Compile Include="Tasks\Composite\ReplaceGacAssemblyTask.cs" />
+    <Compile Include="Tasks\Composite\CreatePackageTask.cs" />
+    <Compile Include="Tasks\Composite\ReplaceComDllTask.cs" />
+    <Compile Include="Tasks\COM\BaseCOMTask.cs" />
+    <Compile Include="Tasks\COM\COMConstants.cs" />
+    <Compile Include="Tasks\COM\COMCreateApplicationTask.cs" />
+    <Compile Include="Tasks\COM\COMDeleteApplicationTask.cs" />
+    <Compile Include="Tasks\COM\COMStartApplicationTask.cs" />
+    <Compile Include="Tasks\COM\COMStopApplicationTask.cs" />
+    <Compile Include="Tasks\EnvIncludeConstants.cs" />
+    <Compile Include="Tasks\EnvIncludeTask.cs" />
+    <Compile Include="Tasks\IIS\BaseAppPoolTask.cs" />
+    <Compile Include="Tasks\IIS\BaseIISTask.cs" />
+    <Compile Include="Tasks\IIS\IISDeleteAppPoolTask.cs" />
+    <Compile Include="Tasks\IIS\IISConstants..cs" />
+    <Compile Include="Tasks\IIS\IISCreateAppPoolTask.cs" />
+    <Compile Include="Tasks\IIS\IISCreateVDirTask.cs" />
+    <Compile Include="Tasks\IIS\IISCreateWebSiteTask.cs" />
+    <Compile Include="Tasks\IIS\IISDeleteVDirTask.cs" />
+    <Compile Include="Tasks\IIS\IISDeleteWebSiteTask.cs" />
+    <Compile Include="Tasks\IIS\IISAdminTask.cs" />
+    <Compile Include="Tasks\NAntConsoleDeployTask.cs" />
+    <Compile Include="Tasks\NAntContrib\ChangeDirectoryTask.cs" />
+    <Compile Include="Tasks\NAntContrib\ChooseTask.cs" />
+    <Compile Include="Tasks\NAntContrib\COMRegisterTask.cs" />
+    <Compile Include="Tasks\NAntContrib\ConcatTask.cs" />
+    <Compile Include="Tasks\NAntContrib\MsbuildTask.cs" />
+    <Compile Include="Tasks\NAntContrib\TryCatchTask.cs" />
+    <Compile Include="Tasks\NAntContrib\Vb6Task.cs" />
+    <Compile Include="Tasks\Net\ASPNetCompileTask.cs" />
+    <Compile Include="Tasks\Net\GacInstallTask.cs" />
+    <Compile Include="Tasks\Net\GacUninstallTask.cs" />
+    <Compile Include="Tasks\Net\GenerateInteropTask.cs" />
+    <Compile Include="Tasks\Net\WsdlTask.cs" />
+    <Compile Include="Tasks\Remote\RemoteConstants.cs" />
+    <Compile Include="Tasks\Remote\RemoteDeployTask.cs" />
+    <Compile Include="Tasks\SVN\BaseSVNMessageTask.cs" />
+    <Compile Include="Tasks\SVN\BaseSVNTask.cs" />
+    <Compile Include="Tasks\SVN\SVNCheckoutTask.cs" />
+    <Compile Include="Tasks\SVN\SVNCommitTask.cs" />
+    <Compile Include="Tasks\SVN\SVNCopyTask.cs" />
+    <Compile Include="Tasks\SVN\SVNDeleteTask.cs" />
+    <Compile Include="Tasks\SVN\SVNUpdateTask.cs" />
+    <Compile Include="Tasks\VB\CheckVB6DependenciesTask.cs" />
+    <Compile Include="Tasks\VB\VB6UpdateVersionTask.cs" />
+    <Compile Include="Tasks\VersionTask.cs" />
+    <Compile Include="Tasks\Windows\AddAccessRuleTask.cs" />
+    <Compile Include="Tasks\Windows\AddUserToGroupTask.cs" />
+    <Compile Include="Tasks\Windows\ATAddJobTask.cs" />
+    <Compile Include="Tasks\Windows\ATDelJobTask.cs" />
+    <Compile Include="Tasks\Windows\BaseAccessRuleTask.cs" />
+    <Compile Include="Tasks\Windows\BaseATTask.cs" />
+    <Compile Include="Tasks\Windows\DeleteRegistry.cs" />
+    <Compile Include="Tasks\Windows\KillProcessTask.cs" />
+    <Compile Include="Tasks\Windows\MsiExecTask.cs" />
+    <Compile Include="Tasks\Windows\RemoveAccessRuleTask.cs" />
+    <Compile Include="Tasks\Windows\RemoveUserFromGroupTask.cs" />
+    <Compile Include="Tasks\Windows\WriteRegistryTask.cs" />
+    <Compile Include="Types\ATDailyTriggerElement.cs" />
+    <Compile Include="Types\ATStartableTriggerElement.cs" />
+    <Compile Include="Types\ATTriggerElement.cs" />
+    <Compile Include="Types\ATTriggersCollectionElement.cs" />
+    <Compile Include="Types\COMComponentPropertyElement.cs" />
+    <Compile Include="Types\COMInstallComponentElement.cs" />
+    <Compile Include="Types\COMRoleElement.cs" />
+    <Compile Include="Types\COMRoleUserElement.cs" />
+    <Compile Include="Types\ATMonthlyDOWTriggerElement.cs" />
+    <Compile Include="Types\ATMonthlyTriggerElement.cs" />
+    <Compile Include="Types\ATRunOnceTriggerElement.cs" />
+    <Compile Include="Types\ATWeeklyTriggerElement.cs" />
+    <Compile Include="Types\ATOnIdleTriggerElement.cs" />
+    <Compile Include="Types\ATOnLogonTriggerElement.cs" />
+    <Compile Include="Types\ATOnSystemStartTriggerElement.cs" />
+    <Compile Include="Types\IISPropertyType.cs" />
+    <Compile Include="Types\IISServerBindings.cs" />
+    <Compile Include="Types\IISVDirElement.cs" />
+    <Compile Include="Types\IISTypedPropertyElement.cs" />
+    <Compile Include="Types\IISWebFileElement.cs" />
+    <Compile Include="Types\ListItemElement.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\Dialogs\AskUserCredentialsForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AskUserCredentialsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\Dialogs\AskUserForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AskUserForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Language" content="en-ca" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <title>&lt;create-package&gt; Task</title>
+</head>
+<body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="2" class="NavBar">
+        <tr>
+            <td class="NavBar-Cell">
+                <a href="http://nant.sourceforge.net"><b>NAnt</b> </a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                <a href="../index.html">Help</a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                <a href="../tasks/index.html">Task Reference</a>
+                <img alt="-&gt;" src="../images/arrow.gif" />
+                &lt;create-package&gt;</td>
+            <td class="NavBar-Cell" align="right">
+                @NAntConsoleVersion@</td>
+        </tr>
+    </table>
+    <h1>
+        &lt;create-package&gt;</h1>
+    <p>
+        Creates a &quot;.deploy&quot; package.
+    </p>
+    <h3>
+        Parameters</h3>
+    <div class="table">
+        <table>
+            <tr>
+                <th>
+                    Attribute</th>
+                <th style="text-align: center;">
+                    Type</th>
+                <th>
+                    Description</th>
+                <th style="text-align: center;">
+                    Required</th>
+            </tr>
+            <tr>
+                <td valign="top">
+                    dir</td>
+                <td style="text-align: center;">
+                    directory</td>
+                <td>
+                    Base directory which constitue the root of the package.
+                </td>
+                <td style="text-align: center;">
+                    True</td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    package</td>
+                <td style="text-align: center;">
+                    file</td>
+                <td>
+                    Name of the package.
+                </td>
+                <td style="text-align: center;">
+                    True</td>
+            </tr>
+        </table>
+    </div>
+    <h3>Content of the package</h3>
+    <p> A &quot;.deploy&quot; package is a zip file constituted by the content of the <code>Dir</code> folder. </p>
+    <p> The package also includes automatically (which means you don't need to copy these elements in the <code>Dir</code> folder :
+        <ul>
+            <li>A copy of the <code>Environment</code> directory if it exists;</li>
+            <li>A copy of the current &quot;.nant&quot; file named <code>deploy.nant</code>;</li>
+            <li>A file named <code>NAntConsole.version</code> which contains the current NAntConsole version number;</li>
+			<li>A file named <code>version.txt</code> which contains the value of the <code>version</code> property if defined. Can be used by the <a href="version.html">version</a> task.</li>
+        </ul>
+    </p>
+    <h3>
+        Examples</h3>
+    <ul class="examples">
+        <li>
+            <p>
+                Creates a package named <code>MyPackage.deploy</code> containing the <code>D:\Package</code> folder and all its sub-folders.
+            </p>
+            <pre class="code">
+&lt;create-package dir=&quot;D:\Package&quot; package=&quot;MyPackage.deploy&quot; /&gt;
+    </pre>
+        </li>
+    </ul>
+</body>
+</html>

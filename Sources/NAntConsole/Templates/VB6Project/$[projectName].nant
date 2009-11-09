@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<project name="$[projectName]" default="build" xmlns="http://nant.sf.net/schemas/nant.xsd">
+
+  <env-include />
+  <version />
+
+  <list list="$[projectName].components.regdependency">
+    <!-- item value="Dependencies\Framework\LSA\CDSDB.dll" /-->
+  </list>
+
+  <list list="$[projectName].projectlist">
+    <!-- item value="Sources\Components\CPO_Audit\CPO_Audit.vbp" /-->
+  </list>
+
+  <property name="$[projectName].build.config" value="debug" />
+
+  <target name="register" description="Register all the dependent components before building.">
+    <list-foreach list="$[projectName].components.regdependency" value-property="filename">
+      <com-register file="${filename}" />
+    </list-foreach>
+  </target>
+
+  <target name="build" depends="register" description="Build the components and website.">
+    <list-foreach list="$[projectName].projectlist" value-property="filename">
+      <check-vb6-dependencies project="${filename}" />
+      <vb6-update-version project="${filename}" />
+      <build-component project="${filename}" configuration="${$[projectName].build.config}" />
+    </list-foreach>
+  </target>
+
+  <target name="unregister" description="Unregister all the components registered by register and build.">
+    <list-foreach list="$[projectName].components.regdependency" value-property="filename">
+      <com-register file="${filename}" unregister="true" />
+    </list-foreach>
+    <foreach item="File" property="filename">
+      <in>
+        <items basedir="Bin">
+          <include name="*.dll" />
+        </items>
+      </in>
+      <do>
+        <com-register unregister="true" file="${filename}" />
+      </do>
+    </foreach>
+  </target>
+
+  <target name="promote-compatibility" description="Copy all the dll from Bin to Compatibility.">
+    <copy todir="Compatibility" overwrite="true">
+      <fileset basedir="Bin">
+        <include name="*.dll"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="package" depends="build" description="Create .deploy package.">
+    <delete dir="Package" />
+    <mkdir dir="Package" />
+    <mkdir dir="Package\Components" />
+    <copy todir="Package\Components" overwrite="true">
+      <fileset basedir="Bin">
+        <include name="*.dll"/>
+      </fileset>
+    </copy>
+    <create-package dir="Package" package="$[projectName]-${version}.deploy" />
+    <delete dir="Package" />
+  </target>
+
+  <target name="release" depends="package" description="Everything needed to create a release, including packaging, svn and delivery dir.">
+    <svn-commit message="Release ${version}" />
+    <svn-copy uri="${svn::get-tags-uri-from-path()}/${version}" message="Release ${version}" />
+    <mkdir dir="${nantconsole.delivery.dir}\$[projectName]\${version}"/>
+    <copy file="$[projectName]-${version}.deploy"  tofile="${nantconsole.delivery.dir}\$[projectName]\${version}\$[projectName]-${version}.deploy" />
+  </target>
+
+  <target name="install" description="Install the .deploy package.">
+    <!-- installation instructions -->
+  </target>
+
+  <target name="uninstall" description="Uninstall the .deploy package.">
+    <!-- teardown instructions -->
+  </target>
+
+</project>
